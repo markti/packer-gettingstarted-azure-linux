@@ -1,0 +1,40 @@
+{
+    "builders": 
+    [
+        {
+            "type": "azure-arm",
+        
+            "client_id": "{{user `azure_client_id`}}",
+            "client_secret": "{{user `azure_client_secret`}}",
+            "tenant_id": "{{user `azure_tenant_id`}}",
+            "subscription_id": "{{user `azure_subscription_id`}}",
+            "object_id": "{{user `object_id`}}",
+        
+            "managed_image_resource_group_name": "{{user `azure_resource_group`}}",
+            "managed_image_name": "ubuntu-baseline_v1_0",
+        
+            "os_type": "Linux",
+            "image_publisher": "Canonical",
+            "image_offer": "UbuntuServer",
+            "image_sku": "16.04-LTS",
+            "image_version": "latest",
+                    
+            "azure_tags": {
+                "os": "Linux "
+            },
+        
+            "location": "Central US",
+            "vm_size": "Standard_DS2_v2"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sleep 30",
+                "sudo apt-get update",
+                "sudo apt-get install -y redis-server"
+            ]
+        }
+    ]
+  }
